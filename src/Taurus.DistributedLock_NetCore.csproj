@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+	  <AssemblyName>Taurus.DistributedLock</AssemblyName>
+	  <RootNamespace>Taurus.DistributedLock</RootNamespace>
+	  <Authors>路过秋天</Authors>
+	  <Description>Taurus.DistributedLock is a distributed lock for .net or .net core.【支持：Local、File、Redis、MemCache、Database 五类锁】</Description>
+	  <Product>Taurus.DistributedLock 分布式锁 .NET Core 版本</Product>
+	  <Company>路过秋天 （2024-01-25）</Company>
+	  <Copyright>版权所有 (C) 路过秋天 2024-2124</Copyright>
+	  <PackageProjectUrl>https://github.com/cyq1162/Taurus.DistributedLock</PackageProjectUrl>
+	  <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	  <AssemblyTitle>Taurus.DistributedLock 分布式锁 .NET Core 版本</AssemblyTitle>
+	  <AssemblyVersion>2.0.0.0</AssemblyVersion>
+	  <FileVersion>2.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\cyqdata.git\cyqdata\src\CYQ.Data_NetCore.csproj" />
+  </ItemGroup>
+
+</Project>

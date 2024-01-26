@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurus.DistributedLock_Standard", "Taurus.DistributedLock_Standard.csproj", "{72912ABE-1BEF-4A53-8383-A7B25276FC99}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CYQ.Data_Standard", "..\..\..\cyqdata.git\cyqdata\src\CYQ.Data_Standard.csproj", "{5AC23FD5-E142-42F2-A913-BAAF6A7D4DC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72912ABE-1BEF-4A53-8383-A7B25276FC99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72912ABE-1BEF-4A53-8383-A7B25276FC99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72912ABE-1BEF-4A53-8383-A7B25276FC99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72912ABE-1BEF-4A53-8383-A7B25276FC99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AC23FD5-E142-42F2-A913-BAAF6A7D4DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AC23FD5-E142-42F2-A913-BAAF6A7D4DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AC23FD5-E142-42F2-A913-BAAF6A7D4DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AC23FD5-E142-42F2-A913-BAAF6A7D4DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86A96827-1977-46F0-A681-4271D50F12C3}
+	EndGlobalSection
+EndGlobal

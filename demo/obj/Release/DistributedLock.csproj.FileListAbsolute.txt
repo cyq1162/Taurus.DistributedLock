@@ -1,0 +1,7 @@
+D:\Code\cyqdata.git\cyqdata\demo\demo-win\CYQ.Data.Lock\DistributedLock\bin\Release\DistributedLock.exe
+D:\Code\cyqdata.git\cyqdata\demo\demo-win\CYQ.Data.Lock\DistributedLock\bin\Release\DistributedLock.pdb
+D:\Code\cyqdata.git\cyqdata\demo\demo-win\CYQ.Data.Lock\DistributedLock\bin\Release\CYQ.Data.dll
+D:\Code\cyqdata.git\cyqdata\demo\demo-win\CYQ.Data.Lock\DistributedLock\bin\Release\CYQ.Data.xml
+D:\Code\cyqdata.git\cyqdata\demo\demo-win\CYQ.Data.Lock\DistributedLock\obj\Release\DistributedLock.csprojResolveAssemblyReference.cache
+D:\Code\cyqdata.git\cyqdata\demo\demo-win\CYQ.Data.Lock\DistributedLock\obj\Release\DistributedLock.exe
+D:\Code\cyqdata.git\cyqdata\demo\demo-win\CYQ.Data.Lock\DistributedLock\obj\Release\DistributedLock.pdb
