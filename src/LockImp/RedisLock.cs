@@ -3,7 +3,7 @@ using CYQ.Data.Cache;
 
 namespace Taurus.Plugin.DistributedLock
 {
-    internal class RedisLock : DistributedLock
+    internal class RedisLock : DLock
     {
         private static readonly RedisLock _instance = new RedisLock();
         private RedisLock() { }
@@ -14,17 +14,16 @@ namespace Taurus.Plugin.DistributedLock
                 return _instance;
             }
         }
-        public override LockType LockType
+        public override DLockType LockType
         {
             get
             {
-                return LockType.Redis;
+                return DLockType.Redis;
             }
         }
 
         protected override bool AddAll(string key, string value, double cacheMinutes)
         {
-            key = "I_" + key;
             return DistributedCache.Redis.SetNXAll(key, value, cacheMinutes);
 
         }

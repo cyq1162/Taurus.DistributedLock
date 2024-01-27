@@ -50,10 +50,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\cyqdata.git\cyqdata\src\CYQ.Data.csproj">
-      <Project>{bd5ccc87-278f-4feb-ad23-157fcba9ffa1}</Project>
-      <Name>CYQ.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\src\Taurus.DistributedLock.csproj">
       <Project>{983f5e37-bd22-4400-a4ac-975388500e78}</Project>
       <Name>Taurus.DistributedLock</Name>

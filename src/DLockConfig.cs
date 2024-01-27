@@ -7,9 +7,9 @@ using System.Text;
 namespace Taurus.Plugin.DistributedLock
 {
     /// <summary>
-    /// 相关配置项
+    /// 分布式锁配置
     /// </summary>
-    public static class DistributedLockConfig
+    public static class DLockConfig
     {
         /// <summary>
         /// 数据库锁：链接字符串
@@ -31,7 +31,7 @@ namespace Taurus.Plugin.DistributedLock
         /// <summary>
         /// 数据库锁：表名
         /// 对应 Appsettings 
-        /// 配置：Lock.Table = Taurus_Lock;
+        /// 配置：Lock.TableName = Taurus_Lock;
         /// </summary>
         public static string TableName
         {
@@ -81,7 +81,7 @@ namespace Taurus.Plugin.DistributedLock
 
         /// <summary>
         /// 文件锁：存锁文件目录，默认临时目录
-        /// 配置：File.Path = /xxx
+        /// 配置：Lock.Path = /xxx
         /// </summary>
         public static string Path 
         {

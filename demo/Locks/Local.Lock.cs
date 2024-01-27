@@ -8,10 +8,10 @@ namespace DistributedLockTest
 {
     class LocalLockDemo
     {
-        static private DistributedLock dsLock;
+        static private DLock dsLock;
         public static void Start()
         {
-            dsLock = DistributedLock.Local;
+            dsLock = DLock.Local;
 
             for (int i = 1; i <= 10000; i++)
             {

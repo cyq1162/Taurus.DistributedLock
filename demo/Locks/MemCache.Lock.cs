@@ -1,6 +1,4 @@
-﻿using CYQ.Data;
-using CYQ.Data.Cache;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -11,11 +9,11 @@ namespace DistributedLockTest
     class MemCacheLockDemo
     {
         static bool hasShowInfo = false;
-        static private DistributedLock dsLock;
+        static private DLock dsLock;
         public static void Start()
         {
-            DistributedLockConfig.MemCacheServers = "192.168.100.111:11211";
-            dsLock = DistributedLock.MemCache;
+            DLockConfig.MemCacheServers = "192.168.100.111:11211";
+            dsLock = DLock.MemCache;
             hasShowInfo = false;
 
 
@@ -57,11 +55,11 @@ namespace DistributedLockTest
                     Console.WriteLine(" - UnLock.");
                     dsLock.UnLock(key);
                 }
-                if (ok % 1000 == 0 && !hasShowInfo)
-                {
-                    hasShowInfo = true;
-                    Console.WriteLine(DistributedCache.MemCache.WorkInfo);
-                }
+                //if (ok % 1000 == 0 && !hasShowInfo)
+                //{
+                //    hasShowInfo = true;
+                //    Console.WriteLine(DistributedCache.MemCache.WorkInfo);
+                //}
             }
         }
     }

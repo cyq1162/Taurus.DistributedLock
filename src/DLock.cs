@@ -13,25 +13,25 @@ namespace Taurus.Plugin.DistributedLock
     /// <summary>
     /// 分布式锁
     /// </summary>
-    public abstract partial class DistributedLock
+    public abstract partial class DLock
     {
         #region 对外实例
         /// <summary>
         /// 分布式锁实例【根据配置顺序取值：DataBase => Redis => MemCache => Local】
         /// </summary>
-        public static DistributedLock Instance
+        public static DLock Instance
         {
             get
             {
-                if (!string.IsNullOrEmpty(DistributedLockConfig.Conn))
+                if (!string.IsNullOrEmpty(DLockConfig.Conn))
                 {
                     return DataBase;
                 }
-                if (!string.IsNullOrEmpty(DistributedLockConfig.RedisServers))
+                if (!string.IsNullOrEmpty(DLockConfig.RedisServers))
                 {
                     return Redis;
                 }
-                if (!string.IsNullOrEmpty(DistributedLockConfig.MemCacheServers))
+                if (!string.IsNullOrEmpty(DLockConfig.MemCacheServers))
                 {
                     return MemCache;
                 }
@@ -43,7 +43,7 @@ namespace Taurus.Plugin.DistributedLock
         /// <summary>
         /// Redis 分布式锁实例
         /// </summary>
-        public static DistributedLock Redis
+        public static DLock Redis
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Taurus.Plugin.DistributedLock
         /// <summary>
         /// MemCach 分布式锁实例
         /// </summary>
-        public static DistributedLock MemCache
+        public static DLock MemCache
         {
             get
             {
@@ -66,7 +66,7 @@ namespace Taurus.Plugin.DistributedLock
         /// <summary>
         /// Local 单机锁 基于 Mutex 锁实例
         /// </summary>
-        public static DistributedLock Local
+        public static DLock Local
         {
             get
             {
@@ -78,7 +78,7 @@ namespace Taurus.Plugin.DistributedLock
         /// <summary>
         /// Local 单机内 文件锁【可跨进程或线程释放】
         /// </summary>
-        public static DistributedLock File
+        public static DLock File
         {
             get
             {
@@ -89,11 +89,11 @@ namespace Taurus.Plugin.DistributedLock
         /// <summary>
         /// 数据库 分布式锁默认实例
         /// </summary>
-        public static DistributedLock DataBase
+        public static DLock DataBase
         {
             get
             {
-                return new DataBaseLock(DistributedLockConfig.TableName, DistributedLockConfig.Conn);
+                return new DataBaseLock(DLockConfig.TableName, DLockConfig.Conn);
             }
         }
         /// <summary>
@@ -101,9 +101,9 @@ namespace Taurus.Plugin.DistributedLock
         /// </summary>
         /// <param name="tableName">自定义表名</param>
         /// <returns></returns>
-        public static DistributedLock GetDataBaseLock(string tableName)
+        public static DLock GetDataBaseLock(string tableName)
         {
-            return new DataBaseLock(tableName, DistributedLockConfig.Conn);
+            return new DataBaseLock(tableName, DLockConfig.Conn);
         }
         /// <summary>
         /// 自定义数据库锁实例。
@@ -111,7 +111,7 @@ namespace Taurus.Plugin.DistributedLock
         /// <param name="tableName">自定义表名</param>
         /// <param name="conn">自定义数据库链接</param>
         /// <returns></returns>
-        public static DistributedLock GetDataBaseLock(string tableName, string conn)
+        public static DLock GetDataBaseLock(string tableName, string conn)
         {
             return new DataBaseLock(tableName, conn);
         }
@@ -136,13 +136,13 @@ namespace Taurus.Plugin.DistributedLock
         /// <summary>
         /// 锁类型
         /// </summary>
-        public abstract LockType LockType { get; }
+        public abstract DLockType LockType { get; }
     }
 
     /// <summary>
     /// 处理分布式锁
     /// </summary>
-    public abstract partial class DistributedLock
+    public abstract partial class DLock
     {
         /// <summary>
         /// 重入锁 字典

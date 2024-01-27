@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Taurus.Plugin.DistributedLock
 {
-    internal partial class LocalLock : DistributedLock
+    internal partial class LocalLock : DLock
     {
         private static readonly LocalLock _instance = new LocalLock();
         private LocalLock() { }
@@ -15,11 +15,11 @@ namespace Taurus.Plugin.DistributedLock
                 return _instance;
             }
         }
-        public override LockType LockType
+        public override DLockType LockType
         {
             get
             {
-                return LockType.Local;
+                return DLockType.Local;
             }
         }
     }

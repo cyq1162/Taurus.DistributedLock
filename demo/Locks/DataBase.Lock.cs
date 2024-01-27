@@ -1,5 +1,4 @@
-﻿using CYQ.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -9,14 +8,14 @@ namespace DistributedLockTest
 {
     class DataBaseLockDemo
     {
-        static private DistributedLock dsLock;
+        static private DLock dsLock;
         public static void Start()
         {
-            DistributedLockConfig.Conn = "server=.;database=mslog;uid=sa;pwd=123456";//由数据库链接决定启用什么链接
-            DistributedLockConfig.TableName = "taurus_lock";
+            DLockConfig.Conn = "server=.;database=mslog;uid=sa;pwd=123456";//由数据库链接决定启用什么链接
+            DLockConfig.TableName = "taurus_lock";
 
             //使用全局默认配置
-            dsLock = DistributedLock.DataBase;
+            dsLock = DLock.DataBase;
 
             //使用临时配置
             //dsLock = DistributedLock.GetDataBaseLock("myCustomTable");

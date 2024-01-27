@@ -1,6 +1,4 @@
-﻿using CYQ.Data;
-using CYQ.Data.Cache;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -11,11 +9,11 @@ namespace DistributedLockTest
     class RedisLockDemo
     {
         static bool hasShowInfo = false;
-        static private DistributedLock dsLock;
+        static private DLock dsLock;
         public static void Start()
         {
-            DistributedLockConfig.RedisServers = "192.168.100.111:6379";
-            dsLock = DistributedLock.Redis;
+            DLockConfig.RedisServers = "127.0.0.1:6379";
+            dsLock = DLock.Redis;
             hasShowInfo = false;
             for (int i = 1; i <= 1000; i++)
             {
@@ -35,8 +33,8 @@ namespace DistributedLockTest
                 isOK = dsLock.Lock(key, 30000);
                 if (isOK)
                 {
-                    isOK = dsLock.Lock(key, 30000);
-                    dsLock.UnLock(key);
+                    //isOK = dsLock.Lock(key, 30000);
+                    //dsLock.UnLock(key);
                     Interlocked.Increment(ref ok);
                     Console.Write(ok + " - Redis OK - " + Thread.CurrentThread.ManagedThreadId);
                     //Console.WriteLine("数字：" + i + " -- 线程ID：" + Thread.CurrentThread.ManagedThreadId + " 获得锁成功。");
@@ -55,11 +53,11 @@ namespace DistributedLockTest
                     Console.WriteLine(" - UnLock.");
                     dsLock.UnLock(key);
                 }
-                if (ok % 1000 == 0 && !hasShowInfo)
-                {
-                    hasShowInfo = true;
-                    Console.WriteLine(DistributedCache.Redis.WorkInfo);
-                }
+                //if (ok % 1000 == 0 && !hasShowInfo)
+                //{
+                //    hasShowInfo = true;
+                //    Console.WriteLine(DistributedCache.Redis.WorkInfo);
+                //}
             }
         }
     }

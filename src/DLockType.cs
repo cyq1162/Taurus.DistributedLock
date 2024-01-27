@@ -1,9 +1,9 @@
 ﻿namespace Taurus.Plugin.DistributedLock
 {
     /// <summary>
-    /// 锁的类型
+    /// 分布式锁的类型
     /// </summary>
-    public enum LockType
+    public enum DLockType
     {
         /// <summary>
         /// 基于数据库的分布式锁
@@ -22,7 +22,7 @@
         /// </summary>
         Local,
         /// <summary>
-        /// 基于本机的文件锁，允许其它进程或线程释放。
+        /// 基于本机文件的锁，允许其它进程或线程释放。
         /// </summary>
         File
     }

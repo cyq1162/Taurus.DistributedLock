@@ -2,7 +2,7 @@
 
 namespace Taurus.Plugin.DistributedLock
 {
-    internal class MemCacheLock : DistributedLock
+    internal class MemCacheLock : DLock
     {
         private static readonly MemCacheLock _instance = new MemCacheLock();
         private MemCacheLock() { }
@@ -13,11 +13,11 @@ namespace Taurus.Plugin.DistributedLock
                 return _instance;
             }
         }
-        public override LockType LockType
+        public override DLockType LockType
         {
             get
             {
-                return LockType.MemCache;
+                return DLockType.MemCache;
             }
         }
 

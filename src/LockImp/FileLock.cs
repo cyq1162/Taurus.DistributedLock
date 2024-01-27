@@ -10,13 +10,13 @@ using System.Threading;
 
 namespace Taurus.Plugin.DistributedLock
 {
-    internal partial class FileLock : DistributedLock
+    internal partial class FileLock : DLock
     {
         private static readonly FileLock _instance = new FileLock();
         string folder = string.Empty;
         private FileLock()
         {
-            string path = DistributedLockConfig.Path;
+            string path = DLockConfig.Path;
             if (!path.Contains(":") && !path.StartsWith("/tmp"))
             {
                 //自定义路径
@@ -35,11 +35,11 @@ namespace Taurus.Plugin.DistributedLock
                 return _instance;
             }
         }
-        public override LockType LockType
+        public override DLockType LockType
         {
             get
             {
-                return LockType.File;
+                return DLockType.File;
             }
         }
 

@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Taurus.Plugin.DistributedLock
 {
-    internal partial class DataBaseLock : DistributedLock
+    internal partial class DataBaseLock : DLock
     {
         string tableName;
         string conn;
@@ -17,11 +17,11 @@ namespace Taurus.Plugin.DistributedLock
             this.tableName = tableName;
             this.conn = conn;
         }
-        public override LockType LockType
+        public override DLockType LockType
         {
             get
             {
-                return LockType.DataBase;
+                return DLockType.DataBase;
             }
         }
     }
