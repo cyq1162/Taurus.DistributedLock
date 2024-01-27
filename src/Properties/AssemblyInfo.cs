@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Taurus.DistributedLock 分布式锁 .NET 版本")]
-[assembly: AssemblyDescription("Taurus.DistributedLock is a distributed lock for .net or .net core.【支持：Local、File、Redis、MemCache、Database 五类锁】")]
+[assembly: AssemblyDescription("Taurus.DistributedLock is a distributed lock for .net or .net core.【支持：Redis、MemCache、Database、Local、File 五类锁】")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("路过秋天 （2024-01-25）")]
+[assembly: AssemblyCompany("路过秋天 （2024-01-27）")]
 [assembly: AssemblyProduct("Taurus.DistributedLock")]
 [assembly: AssemblyCopyright("版权所有 (C) 路过秋天 2024-2124")]
 [assembly: AssemblyTrademark("Taurus.DistributedLock")]

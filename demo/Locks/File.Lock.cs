@@ -31,8 +31,8 @@ namespace DistributedLockTest
                 isOK = dsLock.Lock(key, 30000);
                 if (isOK)
                 {
-                    isOK = dsLock.Lock(key, 30000);
-                    dsLock.UnLock(key);
+                    //isOK = dsLock.Lock(key, 30000);
+                    //dsLock.UnLock(key);
                     Interlocked.Increment(ref ok);
                     Console.Write(ok + " - File OK - " + Thread.CurrentThread.ManagedThreadId);
                     //Console.WriteLine("数字：" + i + " -- 线程ID：" + Thread.CurrentThread.ManagedThreadId + " 获得锁成功。");

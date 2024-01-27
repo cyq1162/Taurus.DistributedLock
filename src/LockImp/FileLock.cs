@@ -51,16 +51,17 @@ namespace Taurus.Plugin.DistributedLock
         protected override bool OnLock(string key, string value, int millisecondsTimeout)
         {
             //Console.WriteLine("R：" + removeError + " , C：" + createError + " , W：" + writeError + " , C：" + clearError);
-            CheckTimeout(key);
+
             int sleep = 5;
             int count = millisecondsTimeout;
             while (true)
             {
-                if (IsLockOK(key))
+                if (!workKeysDic.ContainsKey(key) && IsLockOK(key))
                 {
-                    AddToWork(key, null);
+                    AddToWork(key, "1");
                     return true;
                 }
+                CheckTimeout(key);
                 Thread.Sleep(sleep);
                 count -= sleep;
                 if (sleep < 1000)
@@ -71,6 +72,7 @@ namespace Taurus.Plugin.DistributedLock
                 {
                     return false;
                 }
+
             }
         }
 
@@ -78,28 +80,26 @@ namespace Taurus.Plugin.DistributedLock
         {
             try
             {
+                string path = folder + key + ".lock";
+                var lockObj = workKeysDic[key];
+                if (lockObj == null)
+                {
+                    return;
+                }
                 workKeysDic.Remove(key);
                 checkKeysDic.Remove(key);
-                string path = folder + key + ".lock";
-                System.IO.File.Delete(path);
-                //FileInfo info = new FileInfo(path);
-                //if (info.Exists)
-                //{
-                //    info.LastWriteTime = DateTime.Now.AddMinutes(-1);
-                //}
+                lock (lockObj)
+                {
+                    System.IO.File.Delete(path);
+                }
 
-                //if (LocalLock.Instance.Lock(key, 1))
-                //{
-                //    
-                //    LocalLock.Instance.UnLock(key);
-                //}
             }
-            catch
+            catch (Exception err)
             {
-                //Interlocked.Increment(ref removeError);
+
             }
         }
-        //private static readonly object lockObj = new object();
+
         private bool IsLockOK(string key)
         {
             string path = folder + key + ".lock";
@@ -109,13 +109,11 @@ namespace Taurus.Plugin.DistributedLock
                 {
                     return false;
                 }
-
                 System.IO.File.Create(path).Close();
                 return true;
             }
             catch (Exception err)
             {
-                //Interlocked.Increment(ref createError);
 
             }
             return false;
@@ -156,17 +154,16 @@ namespace Taurus.Plugin.DistributedLock
                             if (workKeysDic.ContainsKey(key))
                             {
                                 string path = folder + key + ".lock";
-                                //FileInfo fileInfo = new FileInfo(path);
-                                //if (fileInfo.Exists)
-                                //{
-                                //    fileInfo.LastWriteTime = DateTime.Now;
-                                //}
-                                if (System.IO.File.Exists(path))
+                                var lockObj = workKeysDic[key];
+                                if (lockObj != null)
                                 {
-                                    //lock (key)
-                                    //{
-                                    System.IO.File.WriteAllText(path, "1"); //延时锁：6秒
-                                    //}
+                                    lock (lockObj)
+                                    {
+                                        if (System.IO.File.Exists(path))
+                                        {
+                                            System.IO.File.WriteAllText(path, "1"); //延时锁：6秒
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -222,7 +219,11 @@ namespace Taurus.Plugin.DistributedLock
                     {
                         foreach (var key in keys)
                         {
-                            if (workKeysDic.ContainsKey(key)) { continue; }
+                            if (workKeysDic.ContainsKey(key))
+                            {
+                                checkKeysDic.Remove(key);
+                                continue;
+                            }
                             FileInfo fi = new FileInfo(folder + key + ".lock");
                             if (fi.Exists && fi.LastWriteTime.AddSeconds(6) < DateTime.Now)
                             {
@@ -254,7 +255,6 @@ namespace Taurus.Plugin.DistributedLock
     /// </summary>
     internal partial class FileLock
     {
-
 
         private static Mutex GetMutex(string fileName)
         {
