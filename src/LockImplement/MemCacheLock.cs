@@ -30,7 +30,8 @@ namespace Taurus.Plugin.DistributedLock
 
         public override bool Idempotent(string key, double keepMinutes)
         {
-            return AddAll("Idempotent_" + key, "1", keepMinutes);
+            key = "I_" + key;
+            return AddAll(key, "1", keepMinutes);
         }
 
         protected override bool AddAll(string key, string value, double cacheMinutes)

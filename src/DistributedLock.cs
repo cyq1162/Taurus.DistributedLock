@@ -116,7 +116,7 @@ namespace Taurus.Plugin.DistributedLock
         /// <summary>
         /// 当前进程ID
         /// </summary>
-        private static int ProcessID
+        protected static int ProcessID
         {
             get
             {

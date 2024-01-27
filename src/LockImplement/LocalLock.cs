@@ -92,7 +92,7 @@ namespace Taurus.Plugin.DistributedLock
 
         public override bool Idempotent(string key, double keepMinutes)
         {
-            return DistributedLock.File.Idempotent(key);
+            return DistributedLock.File.Idempotent(key, keepMinutes);
         }
     }
 }

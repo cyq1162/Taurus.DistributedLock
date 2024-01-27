@@ -30,11 +30,12 @@ namespace Taurus.Plugin.DistributedLock
 
         public override bool Idempotent(string key, double keepMinutes)
         {
-            return AddAll("Idempotent_" + key, "1", keepMinutes);
+            return AddAll(key, "1", keepMinutes);
         }
 
         protected override bool AddAll(string key, string value, double cacheMinutes)
         {
+            key = "I_" + key;
             return DistributedCache.Redis.SetNXAll(key, value, cacheMinutes);
 
         }

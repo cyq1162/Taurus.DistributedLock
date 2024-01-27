@@ -2,7 +2,9 @@
 using CYQ.Data.Orm;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace Taurus.Plugin.DistributedLock
 {
@@ -27,14 +29,24 @@ namespace Taurus.Plugin.DistributedLock
     {
         protected override bool AddAll(string key, string value, double cacheMinutes)
         {
+            //bool isTimeOut = false;
             using (SysLock sysLock = new SysLock(tableName, conn))
             {
-                sysLock.SetSelectColumns("Expire");
+                //sysLock.SetSelectColumns("Expire");
                 if (sysLock.Fill(key))
                 {
                     if (sysLock.Expire.HasValue && sysLock.Expire.Value < DateTime.Now)
                     {
-                        sysLock.Delete(key);
+                        string where = "LockKey='" + key + "' and LockValue='" + sysLock.LockValue + "'";
+                        if (!sysLock.Delete(where))
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            // Console.WriteLine(where + " - " + sysLock.BaseInfo.RecordsAffected);
+                        }
+                        //isTimeOut = true;
                         //超时,删除，再插入
                         //sysLock.LockValue = value;
                         //sysLock.Expire = DateTime.Now.AddSeconds(6);
@@ -49,8 +61,19 @@ namespace Taurus.Plugin.DistributedLock
                 sysLock.LockKey = key;
                 sysLock.LockValue = value;
                 sysLock.Expire = DateTime.Now.AddMinutes(cacheMinutes);
-                return sysLock.Insert(InsertOp.None);//这里会产生冲突日志记录，应此应该关闭日志的输出。
+                //if (isTimeOut)
+                //{
+                //    lock (this)
+                //    {
+                //        sysLock.Delete(key);
+                //        return sysLock.Insert(InsertOp.None);//这里会产生冲突日志记录，应此应该关闭日志的输出。
+                //    }
 
+                //}
+                //else
+                //{
+                return sysLock.Insert(InsertOp.None);//这里会产生冲突日志记录，应此应该关闭日志的输出。
+                //}
             }
         }
         protected override void RemoveAll(string key)
@@ -87,12 +110,14 @@ namespace Taurus.Plugin.DistributedLock
     {
         public override bool Idempotent(string key)
         {
-            return Idempotent("Idempotent_" + key, 0);
+            return Idempotent(key, 0);
         }
 
         public override bool Idempotent(string key, double keepMinutes)
         {
-            return AddAll(key, "1", keepMinutes);
+            key = "I_" + key;
+            string flag = ProcessID + "," + Thread.CurrentThread.ManagedThreadId + "," + key;
+            return AddAll(key, flag, keepMinutes);
         }
     }
     internal class SysLock : SimpleOrmBase

@@ -103,12 +103,13 @@ namespace Taurus.Plugin.DistributedLock
         private bool IsLockOK(string key)
         {
             string path = folder + key + ".lock";
-            if (System.IO.File.Exists(path))
-            {
-                return false;
-            }
             try
             {
+                if (System.IO.File.Exists(path))
+                {
+                    return false;
+                }
+
                 System.IO.File.Create(path).Close();
                 return true;
             }
@@ -164,7 +165,7 @@ namespace Taurus.Plugin.DistributedLock
                                 {
                                     //lock (key)
                                     //{
-                                        System.IO.File.WriteAllText(path, "1"); //延时锁：6秒
+                                    System.IO.File.WriteAllText(path, "1"); //延时锁：6秒
                                     //}
                                 }
                             }
@@ -255,11 +256,49 @@ namespace Taurus.Plugin.DistributedLock
     {
         public override bool Idempotent(string key)
         {
-            return Idempotent("Idempotent_" + key, 0);
+            return Idempotent(key, 0);
         }
         public override bool Idempotent(string key, double keepMinutes)
         {
-            return IsLockOK("Idempotent_" + key);
+            key = "I_" + key;
+            if (keepMinutes > 0)
+            {
+                string path = folder + key + ".lock";
+                var mutex = GetMutex(path);
+                try
+                {
+                    FileInfo fileInfo = new FileInfo(path);
+                    if (fileInfo.Exists && fileInfo.LastWriteTime.AddMinutes(keepMinutes) < DateTime.Now)
+                    {
+                        System.IO.File.Delete(path);
+                        return IsLockOK(key);
+                    }
+                }
+                finally
+                {
+                    mutex.ReleaseMutex();
+                }
+
+            }
+            return IsLockOK(key);
+        }
+
+
+        private static Mutex GetMutex(string fileName)
+        {
+            string key = "IO" + fileName.GetHashCode();
+            var mutex = new Mutex(false, key);
+            try
+            {
+                mutex.WaitOne();
+            }
+            catch (AbandonedMutexException ex)
+            {
+                //其它进程直接关闭，未释放即退出时【锁未对外开放，因此不存在重入锁问题，释放1次即可】。
+                mutex.ReleaseMutex();
+                mutex.WaitOne();
+            }
+            return mutex;
         }
     }
 }
