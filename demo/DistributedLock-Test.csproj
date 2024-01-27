@@ -33,9 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CYQ.Data, Version=5.9.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\cyqdata.5.9.0.6\lib\net40\CYQ.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Taurus.DistributedLock, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Taurus.DistributedLock.2.0.1\lib\net40\Taurus.DistributedLock.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Locks\File.Lock.cs" />
@@ -48,12 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\src\Taurus.DistributedLock.csproj">
-      <Project>{983f5e37-bd22-4400-a4ac-975388500e78}</Project>
-      <Name>Taurus.DistributedLock</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
