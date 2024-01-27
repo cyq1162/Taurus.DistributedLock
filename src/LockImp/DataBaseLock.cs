@@ -106,20 +106,6 @@ namespace Taurus.Plugin.DistributedLock
             }
         }
     }
-    internal partial class DataBaseLock
-    {
-        public override bool Idempotent(string key)
-        {
-            return Idempotent(key, 0);
-        }
-
-        public override bool Idempotent(string key, double keepMinutes)
-        {
-            key = "I_" + key;
-            string flag = ProcessID + "," + Thread.CurrentThread.ManagedThreadId + "," + key;
-            return AddAll(key, flag, keepMinutes);
-        }
-    }
     internal class SysLock : SimpleOrmBase
     {
         public SysLock(string tableName, string conn)

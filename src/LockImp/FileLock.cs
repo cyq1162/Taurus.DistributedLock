@@ -16,7 +16,7 @@ namespace Taurus.Plugin.DistributedLock
         string folder = string.Empty;
         private FileLock()
         {
-            string path = DistributedLockConfig.FilePath;
+            string path = DistributedLockConfig.Path;
             if (!path.Contains(":") && !path.StartsWith("/tmp"))
             {
                 //自定义路径
@@ -254,34 +254,6 @@ namespace Taurus.Plugin.DistributedLock
     /// </summary>
     internal partial class FileLock
     {
-        public override bool Idempotent(string key)
-        {
-            return Idempotent(key, 0);
-        }
-        public override bool Idempotent(string key, double keepMinutes)
-        {
-            key = "I_" + key;
-            if (keepMinutes > 0)
-            {
-                string path = folder + key + ".lock";
-                var mutex = GetMutex(path);
-                try
-                {
-                    FileInfo fileInfo = new FileInfo(path);
-                    if (fileInfo.Exists && fileInfo.LastWriteTime.AddMinutes(keepMinutes) < DateTime.Now)
-                    {
-                        System.IO.File.Delete(path);
-                        return IsLockOK(key);
-                    }
-                }
-                finally
-                {
-                    mutex.ReleaseMutex();
-                }
-
-            }
-            return IsLockOK(key);
-        }
 
 
         private static Mutex GetMutex(string fileName)

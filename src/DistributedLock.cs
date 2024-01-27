@@ -17,21 +17,26 @@ namespace Taurus.Plugin.DistributedLock
     {
         #region 对外实例
         /// <summary>
-        /// 分布式锁实例【根据配置顺序取值：Redis=》MemCache=》Local】
+        /// 分布式锁实例【根据配置顺序取值：DataBase => Redis => MemCache => Local】
         /// </summary>
         public static DistributedLock Instance
         {
             get
             {
-                switch (DistributedCache.Instance.CacheType)
+                if (!string.IsNullOrEmpty(DistributedLockConfig.Conn))
                 {
-                    case CacheType.Redis:
-                        return RedisLock.Instance;
-                    case CacheType.MemCache:
-                        return MemCacheLock.Instance;
-                    default:
-                        return RedisLock.Local;
+                    return DataBase;
                 }
+                if (!string.IsNullOrEmpty(DistributedLockConfig.RedisServers))
+                {
+                    return Redis;
+                }
+                if (!string.IsNullOrEmpty(DistributedLockConfig.MemCacheServers))
+                {
+                    return MemCache;
+                }
+                return Local;
+
             }
         }
 
@@ -88,7 +93,7 @@ namespace Taurus.Plugin.DistributedLock
         {
             get
             {
-                return new DataBaseLock(DistributedLockConfig.LockTable, DistributedLockConfig.LockConn);
+                return new DataBaseLock(DistributedLockConfig.TableName, DistributedLockConfig.Conn);
             }
         }
         /// <summary>
@@ -98,7 +103,7 @@ namespace Taurus.Plugin.DistributedLock
         /// <returns></returns>
         public static DistributedLock GetDataBaseLock(string tableName)
         {
-            return new DataBaseLock(tableName, DistributedLockConfig.LockConn);
+            return new DataBaseLock(tableName, DistributedLockConfig.Conn);
         }
         /// <summary>
         /// 自定义数据库锁实例。
@@ -132,20 +137,6 @@ namespace Taurus.Plugin.DistributedLock
         /// 锁类型
         /// </summary>
         public abstract LockType LockType { get; }
-
-        /// <summary>
-        /// 幂等性
-        /// </summary>
-        /// <param name="key">key</param>
-        /// <returns></returns>
-        public abstract bool Idempotent(string key);
-        /// <summary>
-        /// 幂等性
-        /// </summary>
-        /// <param name="key">key</param>
-        /// <param name="keepMinutes">数据保留时间，单位分钟，0 则永久。</param>
-        /// <returns></returns>
-        public abstract bool Idempotent(string key, double keepMinutes);
     }
 
     /// <summary>

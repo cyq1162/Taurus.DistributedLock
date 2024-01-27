@@ -78,21 +78,4 @@ namespace Taurus.Plugin.DistributedLock
 
         }
     }
-
-    /// <summary>
-    /// 处理分布式锁【幂等性】
-    /// </summary>
-    internal partial class LocalLock
-    {
-
-        public override bool Idempotent(string key)
-        {
-            return Idempotent(key, 0);
-        }
-
-        public override bool Idempotent(string key, double keepMinutes)
-        {
-            return DistributedLock.File.Idempotent(key, keepMinutes);
-        }
-    }
 }

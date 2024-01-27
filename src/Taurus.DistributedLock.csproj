@@ -38,11 +38,11 @@
   <ItemGroup>
     <Compile Include="DistributedLock.cs" />
     <Compile Include="DistributedLockConfig.cs" />
-    <Compile Include="LockImplement\DataBaseLock.cs" />
-    <Compile Include="LockImplement\FileLock.cs" />
-    <Compile Include="LockImplement\LocalLock.cs" />
-    <Compile Include="LockImplement\MemCacheLock.cs" />
-    <Compile Include="LockImplement\RedisLock.cs" />
+    <Compile Include="LockImp\DataBaseLock.cs" />
+    <Compile Include="LockImp\FileLock.cs" />
+    <Compile Include="LockImp\LocalLock.cs" />
+    <Compile Include="LockImp\MemCacheLock.cs" />
+    <Compile Include="LockImp\RedisLock.cs" />
     <Compile Include="LockType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

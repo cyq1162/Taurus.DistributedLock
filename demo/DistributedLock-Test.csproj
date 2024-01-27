@@ -38,13 +38,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="File.Lock.cs" />
+    <Compile Include="Locks\File.Lock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Local.Lock.cs" />
-    <Compile Include="Redis.Lock.cs" />
-    <Compile Include="MemCache.Lock.cs" />
-    <Compile Include="DataBase.Lock.cs" />
+    <Compile Include="Locks\Local.Lock.cs" />
+    <Compile Include="Locks\Redis.Lock.cs" />
+    <Compile Include="Locks\MemCache.Lock.cs" />
+    <Compile Include="Locks\DataBase.Lock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

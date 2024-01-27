@@ -1,0 +1,5 @@
+﻿V2.0 【2024-01-27】 - https://github.com/cyq1162/Taurus.DistributedLock
+----------------------------------------------------------------------------
+1、支持以下五类锁：数据库锁、Redis锁、MemCache锁、File文件锁、Local内存锁。
+2、数据库锁支持以下数据库：Mssql、Mysql、Oracle、Sybase、Postgres、DB2、FireBird、Sqlite、DaMeng（达梦）、KingBaseES（人大金仓）。
+3、幂等性锁见：Taurus.Idempotent：https://github.com/cyq1162/Taurus.Idempotent，Nuget 搜：Taurus.Idempotent

@@ -10,11 +10,11 @@ namespace DistributedLockTest
         static void Main(string[] args)
         {
             Console.WriteLine("-----------------------------");
-            Console.WriteLine("1、LocalLock - Demo。");
-            Console.WriteLine("2、FileLock - Demo。");
-            Console.WriteLine("3、DataBaseLock - Demo。");
-            Console.WriteLine("4、RedisLock - Demo。");
-            Console.WriteLine("5、MemCacheLock - Demo。");
+            Console.WriteLine("1、Local.Lock");
+            Console.WriteLine("2、FileLock");
+            Console.WriteLine("3、DataBase.Lock");
+            Console.WriteLine("4、Redis.Lock");
+            Console.WriteLine("5、MemCache.Lock");
             Console.WriteLine("-----------------------------");
             Console.WriteLine("Input num to choose : ");
             string key = Console.ReadLine();

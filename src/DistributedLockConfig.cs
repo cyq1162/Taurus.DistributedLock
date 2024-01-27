@@ -11,53 +11,37 @@ namespace Taurus.Plugin.DistributedLock
     /// </summary>
     public static class DistributedLockConfig
     {
-        private static string _LockConn;
         /// <summary>
         /// 数据库锁：链接字符串
         /// 对应 ConnectionStrings 
         /// 配置：LockConn : server=.;database=mslog;uid=sa;pwd=123456;
         /// </summary>
-        public static string LockConn
+        public static string Conn
         {
             get
             {
-                if (string.IsNullOrEmpty(_LockConn))
-                {
-                    string conn = AppConfig.GetConn("LockConn");
-                    if (string.IsNullOrEmpty(conn))
-                    {
-                        conn = AppConfig.DB.DefaultConn;
-                    }
-                    _LockConn = conn;
-                }
-                return _LockConn;
+                return AppConfig.GetConn("LockConn");
             }
             set
             {
-                _LockConn = value;
+                AppConfig.SetConn("LockConn", value);
             }
         }
 
-
-        private static string _LockTable;
         /// <summary>
         /// 数据库锁：表名
         /// 对应 Appsettings 
         /// 配置：Lock.Table = Taurus_Lock;
         /// </summary>
-        public static string LockTable
+        public static string TableName
         {
             get
             {
-                if (string.IsNullOrEmpty(_LockTable))
-                {
-                    _LockTable = AppConfig.GetApp("Lock.Table", "Taurus_Lock");
-                }
-                return _LockTable;
+                return AppConfig.GetApp("Lock.TableName", "Taurus_Lock");
             }
             set
             {
-                _LockTable = value;
+                AppConfig.GetApp("Lock.TableName", value);
             }
         }
 
@@ -99,15 +83,15 @@ namespace Taurus.Plugin.DistributedLock
         /// 文件锁：存锁文件目录，默认临时目录
         /// 配置：File.Path = /xxx
         /// </summary>
-        public static string FilePath
+        public static string Path 
         {
             get
             {
-                return AppConfig.GetApp("File.Path", Path.GetTempPath());
+                return AppConfig.GetApp("Lock.Path", System.IO.Path.GetTempPath());
             }
             set
             {
-                AppConfig.SetApp("File.Path", value);
+                AppConfig.SetApp("Lock.Path", value);
             }
         }
 

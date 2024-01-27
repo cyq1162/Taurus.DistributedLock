@@ -22,18 +22,6 @@ namespace Taurus.Plugin.DistributedLock
         }
 
 
-
-        public override bool Idempotent(string key)
-        {
-            return Idempotent(key, 0);
-        }
-
-        public override bool Idempotent(string key, double keepMinutes)
-        {
-            key = "I_" + key;
-            return AddAll(key, "1", keepMinutes);
-        }
-
         protected override bool AddAll(string key, string value, double cacheMinutes)
         {
             return DistributedCache.MemCache.SetNXAll(key, value, cacheMinutes);

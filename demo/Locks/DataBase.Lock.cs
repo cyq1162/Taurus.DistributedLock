@@ -12,8 +12,8 @@ namespace DistributedLockTest
         static private DistributedLock dsLock;
         public static void Start()
         {
-            DistributedLockConfig.LockConn = "server=.;database=mslog;uid=sa;pwd=123456";//由数据库链接决定启用什么链接
-            DistributedLockConfig.LockTable = "taurus_lock";
+            DistributedLockConfig.Conn = "server=.;database=mslog;uid=sa;pwd=123456";//由数据库链接决定启用什么链接
+            DistributedLockConfig.TableName = "taurus_lock";
 
             //使用全局默认配置
             dsLock = DistributedLock.DataBase;
